@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luyubo.cms.dao.TousuDao">
+	<insert id="add">
+		insert into cms_complain values(null,#{complain.articleId},#{complain.userId},#{complain.complaintype},
+		#{complain.urlip},#{complain.created})
+	</insert>
+	
+	<select id="select" resultType="Complain">
+		select cms_complain.id id,cms_complain.article_id articleId,cms_complain.user_id userId,
+		cms_complain.complaintype,cms_complain.urlip,cms_complain.created
+		 from cms_complain
+	</select>
+</mapper>

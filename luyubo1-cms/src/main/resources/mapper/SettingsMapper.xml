@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luyubo.cms.dao.SettingsDao">
+	<select id="select" resultType="Settings">
+		select * from cms_settings
+	</select>
+	
+	<select id="selectById" resultType="Settings">
+		select * from cms_settings where id=#{id}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(1) from cms_settings
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true"  keyProperty="settings.id">
+		insert into cms_settings (site_domain, site_name, article_list_size, 
+	      slide_size, admin_username, admin_password
+	      )
+	    values (#{settings.site_domain}, #{settings.site_name}, #{settings.article_list_size}, 
+	      #{settings.slide_size}, #{settings.admin_username}, #{settings.admin_password}
+	      )
+	</insert>
+	
+	<update id="update">
+		update cms_settings
+	    set site_domain = #{settings.site_domain},
+	      site_name = #{settings.site_name},
+	      article_list_size = #{settings.article_list_size},
+	      slide_size = #{settings.slide_size},
+	      admin_username = #{settings.admin_username},
+	      admin_password = #{settings.admin_password}
+	    where id = #{settings.id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from cms_settings where id=#{id}
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from cms_settings where id in(${ids})
+	</delete>
+</mapper>
