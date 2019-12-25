@@ -11,6 +11,7 @@ import com.github.pagehelper.PageInfo;
 import com.luyubo.cms.dao.ArticleDao;
 import com.luyubo.cms.dao.CategoryDao;
 import com.luyubo.cms.dao.ChannelDao;
+import com.luyubo.cms.dao.TousuDao;
 import com.luyubo.cms.pojo.Article;
 import com.luyubo.cms.pojo.Category;
 import com.luyubo.cms.pojo.Channel;
@@ -29,6 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
 	private ChannelDao channelDao;
 	@Autowired
 	private CategoryDao categoryDao;
+	@Autowired
+	private TousuDao tousuDao;
 	
 	@Override
 	public List<Channel> getChannelList() {
@@ -171,6 +174,12 @@ public class ArticleServiceImpl implements ArticleService {
 	public List<Article> selectComplain(int i) {
 		// TODO Auto-generated method stub
 		return articleDao.selecttouSu(i);
+	}
+
+	@Override
+	public List<Complain> selectComplain() {
+		// TODO Auto-generated method stub
+		return tousuDao.select();
 	}
 
 }

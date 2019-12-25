@@ -136,4 +136,6 @@ public interface ArticleService {
 	 */
 	List<Article> selectByTousuUser(Integer articleId);
 
+	List<Complain> selectComplain();
+
 }

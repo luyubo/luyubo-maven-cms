@@ -210,16 +210,11 @@ public class UserController {
 	
 	@RequestMapping(value = "isLogin")
 	@ResponseBody
-	public JsonResult isLogin(Integer id,HttpSession session) {
+	public JsonResult isLogin(HttpSession session) {
 		User userInfo = (User) session.getAttribute(CmsConstant.UserSessionKey);
 		
 		if(userInfo==null) {
 			return JsonResult.fail(5000, "未登录");
-		}
-		System.out.println(userInfo+"===============");
-		boolean flag=(userInfo.getId()==id);
-		if(flag) {
-			return JsonResult.fail(10000, "不能投诉自己的文章");
 		}
 		return JsonResult.success();
 	}

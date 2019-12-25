@@ -34,6 +34,7 @@
 		<c:if test="${USER_SESSION_ID==null }">
 			<a class="nav-link" href="/user/login">登录</a>
 		</c:if>
+		<input type="hidden" value="${USER_SESSION_ID.id}" id="id" name="id">
 	</nav>
 	<div class="container-fluid">
 		<div class="row offset-1" style="margin-top: 15px;">
@@ -111,15 +112,15 @@
 	}
 	
 	function tousu(id){
-		var userid=${USER_SESSION_ID.id}
-		if(id==userid){
-			alert("不能投诉自己的文章");
+		var userid=$("#id").val();
+		if(userid==id){
+			alert("不能投诉自己");
 			return;
 		}
 		$.post(
 			"/user/isLogin",
-			{id:id},
-			function(res){
+			null,
+			function(res){ 
 				if(res.result){
 					window.open("/user/tousu?articleId="+articleId);
 				}else{

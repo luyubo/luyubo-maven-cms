@@ -156,6 +156,8 @@ public class AdminController {
 			@RequestParam(value = "pageSize",defaultValue = "3")Integer pageSize) {
 		PageInfo<Article> pageInfo=articleService.selectByTousu(complain,pageNum,pageSize);
 		model.addAttribute("pageInfo", pageInfo);
+		List<Complain> complainList=articleService.selectComplain();
+		model.addAttribute("complainList", complainList);
 		return "admin/tousulist";
 	}
 }

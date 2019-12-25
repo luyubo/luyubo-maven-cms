@@ -7,12 +7,12 @@
 	     <select id="inputState" class="form-control" id="complaintype" name="complaintype">
 	        <option value="">请选择投诉类型</option>
 	     	<c:forEach items="${complainList }" var="item">
-	     		<c:if test="${item.articleId==article.id}">
+	     		<%-- <c:if test="${item.articleId==article.id}">
 			        <option value="${item.complaintype }" selected="selected">${item.complaintype=="A"?"涉及黄色":item.complaintype=="B"?"涉及暴力":item.complaintype=="C"?"涉及宗教政策":item.complaintype=="D"?"涉及国家安全":item.complaintype=="F"?"涉及抄袭":"其它" }</option>
-	     		</c:if>
-	     		<c:if test="${item.articleId!=article.id }">
+	     		</c:if> --%>
+	     		<%-- <c:if test="${item.articleId!=article.id }"> --%>
 			        <option value="${item.complaintype }">${item.complaintype=="A"?"涉及黄色":item.complaintype=="B"?"涉及暴力":item.complaintype=="C"?"涉及宗教政策":item.complaintype=="D"?"涉及国家安全":item.complaintype=="F"?"涉及抄袭":"其它" }</option>
-	     		</c:if>
+	     		<%-- </c:if> --%>
 	     	</c:forEach>
 	      </select>
 	  </div>

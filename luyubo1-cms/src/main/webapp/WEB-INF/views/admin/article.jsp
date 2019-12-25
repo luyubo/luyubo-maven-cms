@@ -53,7 +53,7 @@
 	      <td>${item.channelName }</td>
 	      <td>${item.categoryName }</td>
 	      <td>${item.hot>0?"是":"否"}</td>
-	      <td>${item.status==1?"已审核":item.status==0?"未审核":item.status==2?"未审核":"审核未通过"}</td>
+	      <td>${item.status==1?"已审核":item.status==0?"未审核":item.status==2?"未审核":item.status==3?"禁用":"审核未通过"}</td>
 	      <td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"/></td>
 	      <td>
 	      	<button type="button" class="btn btn-primary" onclick="check('${item.id}')">审核</button>

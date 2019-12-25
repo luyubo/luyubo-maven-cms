@@ -29,8 +29,8 @@ public class TousuController {
 	public JsonResult add(Complain complain,Integer articleId,HttpSession session) {
 		User userInfo = (User) session.getAttribute(CmsConstant.UserSessionKey);
 		complain.setUserId(userInfo.getId());
-		System.out.println(complain+"============"); 
 		System.out.println(StringUtil.isHttpUrl(complain.getUrlip()));
+		System.out.println(complain+"===============");
 		if(complain.getComplaintype()==null) {
 			return JsonResult.fail(5001, "请选择投诉类型");
 		}
