@@ -51,7 +51,12 @@
 				and article.tousuCnt&lt;=#{complain.max}
 			</if>
 		</where>
-		order by complain.created desc
+			<if test="complain.articledesc==0 or complain.articledesc==null">
+				order by complain.created desc
+			</if>
+			<if test="complain.articledesc==1">
+				order by complain.created
+			</if>
 	</select>
 	
 	<select id="selectByIds" resultType="Article">

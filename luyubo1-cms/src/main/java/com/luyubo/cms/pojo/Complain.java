@@ -13,6 +13,16 @@ public class Complain {
 	private String created;
 	private Integer min;
 	private Integer max;
+	private Integer articledesc;
+	
+	public Integer getArticledesc() {
+		return articledesc;
+	}
+
+
+	public void setArticledesc(Integer articledesc) {
+		this.articledesc = articledesc;
+	}
 	public Integer getMin() {
 		return min;
 	}
@@ -64,8 +74,11 @@ public class Complain {
 	@Override
 	public String toString() {
 		return "Complain [id=" + id + ", articleId=" + articleId + ", userId=" + userId + ", complaintype="
-				+ complaintype + ", urlip=" + urlip + ", created=" + created + ", min=" + min + ", max=" + max + "]";
+				+ complaintype + ", urlip=" + urlip + ", created=" + created + ", min=" + min + ", max=" + max
+				+ ", articledesc=" + articledesc + "]";
 	}
+
+
 	public Complain(Integer id, Integer articleId, Integer userId, String complaintype, String urlip, String created) {
 		super();
 		this.id = id;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.sql.visitor.functions.If;
 import com.github.pagehelper.PageInfo;
 import com.luyubo.cms.pojo.Article;
 import com.luyubo.cms.pojo.Channel;
@@ -31,6 +32,8 @@ public class AdminController {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	private Integer i=0;
 	
 	@RequestMapping("/")
 	public String login() {
@@ -154,6 +157,13 @@ public class AdminController {
 	@RequestMapping("/tousu")
 	public String tousu(Complain complain,Model model,@RequestParam(value = "pageNum",defaultValue = "1")Integer pageNum,
 			@RequestParam(value = "pageSize",defaultValue = "3")Integer pageSize) {
+		i++;
+		if(i%2!=0) {
+			complain.setArticledesc(1);
+		}
+		if(i%2==0) {
+			complain.setArticledesc(0);
+		}
 		PageInfo<Article> pageInfo=articleService.selectByTousu(complain,pageNum,pageSize);
 		model.addAttribute("pageInfo", pageInfo);
 		List<Complain> complainList=articleService.selectComplain();

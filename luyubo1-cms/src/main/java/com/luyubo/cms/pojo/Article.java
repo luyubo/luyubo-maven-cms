@@ -60,7 +60,8 @@ public class Article implements Serializable{
 	private Integer tousuId;
 	
 	private String tousuTime;
-	
+
+
 	public Integer getTousuId() {
 		return tousuId;
 	}

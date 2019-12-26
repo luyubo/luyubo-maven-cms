@@ -23,6 +23,7 @@
 	   	 次数小于<input type="text" id="max" name="max" value="${complain.max }" class="form-control">
 	  </div>
 	  <input type="hidden" name="pageNum" value="1">
+	  <input type="hidden" id="articledesc" name="articledesc" value="0">
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
@@ -32,7 +33,7 @@
       <th scope="col">#</th>
       <th scope="col">标题</th>
       <th scope="col">投诉类型</th>
-      <th scope="col" onclick="desc(1)">投诉次数</th>
+      <th scope="col" onclick="desc()">投诉次数</th>
       <th scope="col">投诉详情</th>
       <th scope="col">操作</th>
     </tr>
@@ -98,9 +99,9 @@ function status(id){
 	)
 }
 
-function desc(id){
-	var params = $("form").serialize();
-	reload();
+function desc(){
+	 $("#articledesc").val("1");
+	query();
 }
 
 function view(id){
