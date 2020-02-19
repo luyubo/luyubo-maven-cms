@@ -10,23 +10,27 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bawei.commons.utils.StringUtil;
 import com.github.pagehelper.PageInfo;
+import com.luyubo.StringUtil;
 import com.luyubo.cms.common.CmsConstant;
 import com.luyubo.cms.common.CmsMd5Util;
 import com.luyubo.cms.common.CookieUtil;
 import com.luyubo.cms.common.JsonResult;
+import com.luyubo.cms.dao.ImportDao;
 import com.luyubo.cms.pojo.Article;
 import com.luyubo.cms.pojo.Channel;
 import com.luyubo.cms.pojo.Comment;
+import com.luyubo.cms.pojo.Import;
 import com.luyubo.cms.pojo.User;
 import com.luyubo.cms.service.ArticleService;
 import com.luyubo.cms.service.CommentService;
+import com.luyubo.cms.service.ImportService;
 import com.luyubo.cms.service.UserService;
 
 @Controller
@@ -40,6 +44,8 @@ public class UserController {
 	
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private ImportService importService;
 	
 	/**
 	 * 用户登录界面
@@ -223,5 +229,35 @@ public class UserController {
 	public String totousu(Integer articleId,Model model) {
 		model.addAttribute("articleId", articleId);
 		return "user/tousu";
+	}
+	
+	@RequestMapping("/shoucang/{userid}/{articleId}/{text}")
+	public String toimport(@PathVariable Integer userid,@PathVariable Integer articleId,@PathVariable String text) {
+		Import import1=new Import();
+		import1.setText(text);
+		import1.setUrl("http://localhost/article/"+articleId+".html");
+		String substring = import1.getUrl().substring(0, 7);
+		if(!StringUtil.ishttp(substring)) {
+			return "user/errorshoucang";
+		}
+		import1.setCreated(new Date());
+		import1.setUser_id(userid);
+		int i=importService.toimport(import1);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/import")
+	public String list(String text,@RequestParam(defaultValue = "1")Integer page,
+			@RequestParam(defaultValue = "5")Integer pageSize,Model model) {
+		PageInfo<Import> pageInfo=importService.selectAll(text,page,pageSize);
+		model.addAttribute("text", text);
+		model.addAttribute("pageInfo", pageInfo);
+		return "user/import";
+	}
+	
+	@RequestMapping("/deleteimport")
+	public String importdelete(Integer id,Model model) {
+		importService.delete(id);
+		return "redirect:/";
 	}
 }

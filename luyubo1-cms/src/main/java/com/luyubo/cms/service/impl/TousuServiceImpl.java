@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bawei.commons.utils.DateUtil;
-import com.bawei.commons.utils.StringUtil;
+import com.luyubo.DateUtil;
+import com.luyubo.StringUtil;
 import com.luyubo.cms.dao.ArticleDao;
 import com.luyubo.cms.dao.TousuDao;
 import com.luyubo.cms.pojo.Article;

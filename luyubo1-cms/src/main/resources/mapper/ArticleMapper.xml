@@ -5,7 +5,7 @@
 	 <select id="select" resultType="Article">
 		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId,channel.name channelName,cate.name categoryName
 		from cms_article article,cms_channel channel,cms_category cate
-		WHERE article.channel_id=channel.id AND article.category_id=cate.id and article.deleted=0 and article.status in (1,3)
+		WHERE article.channel_id=channel.id AND article.category_id=cate.id and article.deleted=0
 		<if test="article.channelId!=null">
 			and article.channel_id = #{article.channelId}
 		</if>

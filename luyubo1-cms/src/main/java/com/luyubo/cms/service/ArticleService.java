@@ -138,4 +138,6 @@ public interface ArticleService {
 
 	List<Complain> selectComplain();
 
+	List<Article> select(Article article);
+
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bawei.commons.utils.StringUtil;
+import com.luyubo.StringUtil;
 import com.luyubo.cms.common.CmsConstant;
 import com.luyubo.cms.common.CmsMd5Util;
 import com.luyubo.cms.common.JsonResult;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luyubo.cms.dao.ImportDao">
+	 <insert id="toimport">
+	 	insert into import values(null,#{import.text},#{import.url},#{import.user_id},#{import.created})
+	 </insert>
+	 <delete id="delete">
+	 	delete from import where id=#{id}
+	 </delete>
+	 <select id="select" resultType="com.luyubo.cms.pojo.Import">
+	 	select * from import where user_id=${userid} order by created desc
+	 </select>
+	 <select id="selectAll" resultType="com.luyubo.cms.pojo.Import">
+	 	select * from import
+	 	<where>
+	 		<if test="text!=null and text!=''">
+	 			text like '%${text}%'
+	 		</if>
+	 	</where>
+	 	order by created desc
+	 </select>
+</mapper>

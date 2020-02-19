@@ -1,14 +1,21 @@
 package com.luyubo.cms.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import com.luyubo.cms.pojo.Article;
 import com.luyubo.cms.pojo.Category;
 import com.luyubo.cms.pojo.Channel;
@@ -20,6 +27,8 @@ import com.luyubo.cms.service.LinkService;
 import com.luyubo.cms.service.SlideService;
 import com.luyubo.cms.service.UserService;
 
+import net.jpountz.util.Utils;
+
 @Controller
 public class IndexController {
 	@Autowired
@@ -30,6 +39,8 @@ public class IndexController {
 	private SlideService slideService;
 	@Autowired
 	private LinkService LinkService;
+	@Autowired
+	private RedisTemplate<String, String> redisTemplate;
 	
 	
 	@RequestMapping(value = "/")
@@ -47,7 +58,21 @@ public class IndexController {
 		model.addAttribute("slideList", slideList);
 		//最新文章
 		List<Article> newArticleList=articleService.getNewList(6);
-		model.addAttribute("newArticleList", newArticleList);
+		Gson gson=new Gson();
+		ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+		List<Article> listsArticles=new ArrayList<Article>();
+		for (Article article : newArticleList) {
+			String json = gson.toJson(article);
+			opsForValue.set("newArticleList",json);
+			redisTemplate.expire("newArticleList", 5*60, TimeUnit.SECONDS);
+			String string = opsForValue.get("newArticleList");
+			Article fromJson = gson.fromJson(string, Article.class);
+			listsArticles.add(fromJson);
+		}
+		
+		
+		
+		model.addAttribute("newArticleList", listsArticles);
 		//热点文章
 		if (pageNum==null) {
 			pageNum=1;

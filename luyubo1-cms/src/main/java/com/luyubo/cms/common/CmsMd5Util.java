@@ -1,6 +1,6 @@
 package com.luyubo.cms.common;
 
-import com.bawei.commons.utils.Md5Util;
+import com.luyubo.Md5Util;
 
 public class CmsMd5Util {
 	public static String string2MD5(String str) {

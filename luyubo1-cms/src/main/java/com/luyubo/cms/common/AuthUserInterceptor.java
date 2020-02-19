@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.bawei.commons.utils.StringUtil;
+import com.luyubo.StringUtil;
 import com.luyubo.cms.pojo.User;
 import com.luyubo.cms.service.UserService;
 

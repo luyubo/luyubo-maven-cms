@@ -36,7 +36,10 @@
 			<a class="nav-link" href="/user/login">登录</a>
 		</c:if>
 	</nav>
-	
+	<form action="/article/search" method="post">
+		<input type="text" name="title" value=${title }>
+		<input type="submit" value="搜索">
+	</form>
 	<div class="container-fluid">
 		<div class="row offset-1" style="margin-top: 15px;">
 			<div class="col-1">

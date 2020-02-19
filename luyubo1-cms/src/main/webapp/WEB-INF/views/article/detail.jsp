@@ -46,8 +46,10 @@
 						</c:if>
 					<span>${user.nickname }</span> 
 					<span><fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-					<span style="font-size: 24px;">收藏</span>
-					<span style="font-size: 24px;">已收藏</span>
+			        	<button type="button" class="btn btn-primary" onclick="toimport(${user.id})">收藏</button>
+	     			<input type="hidden" value="${article.title }" name="text">
+					
+					
 					<button type="button" class="btn btn-primary" onclick="tousu(${user.id})">投诉</button>
 				</div>
 				<div style="font-size: 24">
@@ -128,6 +130,21 @@
 					window.location.href="/user/login";
 				}
 			}
+		)
+	}
+	function toimport(userid){
+		var text=$("[name=text]").val();
+		$.post(
+				"/user/isLogin",
+				null,
+				function(res){ 
+					if(res.result){
+						window.location.href="/user/shoucang/"+userid+"/"+articleId+"/"+text;
+					}else{
+						alert("你还没有登录");
+						window.location.href="/user/login";
+					}
+				}
 		)
 	}
 	</script>

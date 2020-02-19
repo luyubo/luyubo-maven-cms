@@ -7,19 +7,27 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.luyubo.cms.common.CmsConstant;
 import com.luyubo.cms.common.JsonResult;
 import com.luyubo.cms.pojo.Article;
 import com.luyubo.cms.pojo.Category;
 import com.luyubo.cms.pojo.Channel;
+import com.luyubo.cms.pojo.Link;
+import com.luyubo.cms.pojo.Slide;
 import com.luyubo.cms.pojo.User;
 import com.luyubo.cms.service.ArticleService;
+import com.luyubo.cms.service.LinkService;
+import com.luyubo.cms.service.SlideService;
+import com.luyubo.cms.util.HLUtils;
 
 /**
  * 文章控制器
@@ -31,7 +39,36 @@ import com.luyubo.cms.service.ArticleService;
 public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private ElasticsearchTemplate elasticsearchTemplate;
+	@Autowired
+	private SlideService slideService;
+	@Autowired
+	private LinkService LinkService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
+	
+	//通过es和插件实现高亮查询
+	@RequestMapping("/search")
+	public String search(String title,Model model,@RequestParam(defaultValue = "1")Integer page,
+			@RequestParam(defaultValue = "5")Integer pageSize) {
+		//频道
+		List<Channel> channelList = articleService.getChannelList();
+		model.addAttribute("channelList", channelList);
+		//分类
+		List<Slide> slideList=slideService.getAll();
+		model.addAttribute("slideList", slideList);
+		//最新文章
+		List<Article> newArticleList=articleService.getNewList(6);
+		model.addAttribute("newArticleList", newArticleList);
+		//查询所有友情链接
+		List<Link> linkList=LinkService.select();
+		model.addAttribute("linkList", linkList);
+		
+		PageInfo<?> pageInfo = HLUtils.findByHighLight(elasticsearchTemplate, Article.class, page, pageSize, new String[] {"title"}, "id", title);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("title", title);
+		return "/index";
+	}
 	
 	/**
 	 * 发布文章

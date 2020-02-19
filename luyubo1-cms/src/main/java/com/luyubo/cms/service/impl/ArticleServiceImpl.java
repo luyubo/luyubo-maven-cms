@@ -182,4 +182,10 @@ public class ArticleServiceImpl implements ArticleService {
 		return tousuDao.select();
 	}
 
+	@Override
+	public List<Article> select(Article article) {
+		// TODO Auto-generated method stub
+		return articleDao.select(article);
+	}
+
 }

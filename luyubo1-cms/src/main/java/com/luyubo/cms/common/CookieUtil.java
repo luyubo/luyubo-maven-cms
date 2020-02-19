@@ -8,7 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bawei.commons.utils.StringUtil;
+import com.luyubo.StringUtil;
+
 /**
  * cookie工具类
  * @author 77028
